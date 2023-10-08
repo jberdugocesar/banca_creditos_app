@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CreditResumeMenu extends StatelessWidget {
-  const CreditResumeMenu({Key? key}) : super(key: key);
+class CreditInfoMenu extends StatelessWidget {
+  const CreditInfoMenu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,13 +12,12 @@ class CreditResumeMenu extends StatelessWidget {
         backgroundColor: Colors.white,
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("HOLA"),
-              Text("MAS HOLA"),
-              ElevatedButton(
-                  onPressed: () => Table(), child: Text("Continuar")),
+              const Text("Cuota máxima del prestamo"),
+              const Text("Valor total a pagar: "),
+              ElevatedButton(onPressed: () {}, child: const Text("Cerrar")),
             ],
           ),
         ),

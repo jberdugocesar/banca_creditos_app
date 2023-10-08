@@ -1,5 +1,6 @@
 import 'package:banca_creditos_app/ui/widgets/form.dart';
 import 'package:banca_creditos_app/ui/widgets/table.dart';
+import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,14 +11,15 @@ class CreditHistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height * 0.95;
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: LayoutBuilder(
-            builder: (context, constraints) => SingleChildScrollView(
-                  child: SizedBox(
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: Colors.white,
+          body: LayoutBuilder(
+              builder: (context, constraints) => SizedBox(
                     width: screenWidth,
                     height: screenHeight,
                     child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       color: Colors.pink,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -34,7 +36,130 @@ class CreditHistoryPage extends StatelessWidget {
                             color: Colors.amber,
                             child: SizedBox(
                                 height: screenHeight * 0.44,
-                                child: const InteractiveDataTable()),
+                                child: const InteractiveDataTable(
+                                  columnsText: [
+                                    "Monto del crédito",
+                                    "Fecha de generación",
+                                    "Número de cuotas",
+                                    "Interés",
+                                  ],
+                                  dataRows: <DataRow>[
+                                    DataRow(cells: <DataCell>[
+                                      DataCell(Text('Row 1, Col 1')),
+                                      DataCell(Text('Row 1, Col 2')),
+                                      DataCell(Text('Row 1, Col 3')),
+                                      DataCell(Text('Row 1, Col 4')),
+                                    ]),
+                                    DataRow(cells: <DataCell>[
+                                      DataCell(Text('Row 1, Col 1')),
+                                      DataCell(Text('Row 1, Col 2')),
+                                      DataCell(Text('Row 1, Col 3')),
+                                      DataCell(Text('Row 1, Col 4')),
+                                    ]),
+                                    DataRow(cells: <DataCell>[
+                                      DataCell(Text('Row 1, Col 1')),
+                                      DataCell(Text('Row 1, Col 2')),
+                                      DataCell(Text('Row 1, Col 3')),
+                                      DataCell(Text('Row 1, Col 4')),
+                                    ]),
+                                    DataRow(cells: <DataCell>[
+                                      DataCell(Text('Row 1, Col 1')),
+                                      DataCell(Text('Row 1, Col 2')),
+                                      DataCell(Text('Row 1, Col 3')),
+                                      DataCell(Text('Row 1, Col 4')),
+                                    ]),
+                                    DataRow(cells: <DataCell>[
+                                      DataCell(Text('Row 1, Col 1')),
+                                      DataCell(Text('Row 1, Col 2')),
+                                      DataCell(Text('Row 1, Col 3')),
+                                      DataCell(Text('Row 1, Col 4')),
+                                    ]),
+                                    DataRow(cells: <DataCell>[
+                                      DataCell(Text('Row 1, Col 1')),
+                                      DataCell(Text('Row 1, Col 2')),
+                                      DataCell(Text('Row 1, Col 3')),
+                                      DataCell(Text('Row 1, Col 4')),
+                                    ]),
+                                    DataRow(cells: <DataCell>[
+                                      DataCell(Text('Row 1, Col 1')),
+                                      DataCell(Text('Row 1, Col 2')),
+                                      DataCell(Text('Row 1, Col 3')),
+                                      DataCell(Text('Row 1, Col 4')),
+                                    ]),
+                                    DataRow(cells: <DataCell>[
+                                      DataCell(Text('Row 1, Col 1')),
+                                      DataCell(Text('Row 1, Col 2')),
+                                      DataCell(Text('Row 1, Col 3')),
+                                      DataCell(Text('Row 1, Col 4')),
+                                    ]),
+                                    DataRow(cells: <DataCell>[
+                                      DataCell(Text('Row 1, Col 1')),
+                                      DataCell(Text('Row 1, Col 2')),
+                                      DataCell(Text('Row 1, Col 3')),
+                                      DataCell(Text('Row 1, Col 4')),
+                                    ]),
+                                    DataRow(cells: <DataCell>[
+                                      DataCell(Text('Row 1, Col 1')),
+                                      DataCell(Text('Row 1, Col 2')),
+                                      DataCell(Text('Row 1, Col 3')),
+                                      DataCell(Text('Row 1, Col 4')),
+                                    ]),
+                                    DataRow(cells: <DataCell>[
+                                      DataCell(Text('Row 1, Col 1')),
+                                      DataCell(Text('Row 1, Col 2')),
+                                      DataCell(Text('Row 1, Col 3')),
+                                      DataCell(Text('Row 1, Col 4')),
+                                    ]),
+                                    DataRow(cells: <DataCell>[
+                                      DataCell(Text('Row 1, Col 1')),
+                                      DataCell(Text('Row 1, Col 2')),
+                                      DataCell(Text('Row 1, Col 3')),
+                                      DataCell(Text('Row 1, Col 4')),
+                                    ]),
+                                    DataRow(cells: <DataCell>[
+                                      DataCell(Text('Row 1, Col 1')),
+                                      DataCell(Text('Row 1, Col 2')),
+                                      DataCell(Text('Row 1, Col 3')),
+                                      DataCell(Text('Row 1, Col 4')),
+                                    ]),
+                                    DataRow(cells: <DataCell>[
+                                      DataCell(Text('Row 1, Col 1')),
+                                      DataCell(Text('Row 1, Col 2')),
+                                      DataCell(Text('Row 1, Col 3')),
+                                      DataCell(Text('Row 1, Col 4')),
+                                    ]),
+                                    DataRow(cells: <DataCell>[
+                                      DataCell(Text('Row 1, Col 1')),
+                                      DataCell(Text('Row 1, Col 2')),
+                                      DataCell(Text('Row 1, Col 3')),
+                                      DataCell(Text('Row 1, Col 4')),
+                                    ]),
+                                    DataRow(cells: <DataCell>[
+                                      DataCell(Text('Row 1, Col 1')),
+                                      DataCell(Text('Row 1, Col 2')),
+                                      DataCell(Text('Row 1, Col 3')),
+                                      DataCell(Text('Row 1, Col 4')),
+                                    ]),
+                                    DataRow(cells: <DataCell>[
+                                      DataCell(Text('Row 1, Col 1')),
+                                      DataCell(Text('Row 1, Col 2')),
+                                      DataCell(Text('Row 1, Col 3')),
+                                      DataCell(Text('Row 1, Col 4')),
+                                    ]),
+                                    DataRow(cells: <DataCell>[
+                                      DataCell(Text('Row 1, Col 1')),
+                                      DataCell(Text('Row 1, Col 2')),
+                                      DataCell(Text('Row 1, Col 3')),
+                                      DataCell(Text('Row 1, Col 4')),
+                                    ]),
+                                    DataRow(cells: <DataCell>[
+                                      DataCell(Text('Row 1, Col 1')),
+                                      DataCell(Text('Row 1, Col 2')),
+                                      DataCell(Text('Row 1, Col 3')),
+                                      DataCell(Text('Row 1, Col 4')),
+                                    ]),
+                                  ],
+                                )),
                           ),
                           ElevatedButton(
                             onPressed: () {},
@@ -43,7 +168,7 @@ class CreditHistoryPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                  ),
-                )));
+                  ))),
+    );
   }
 }

@@ -12,32 +12,32 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Text("Login"),
-          Container(
-            height: 350,
-            color: Colors.red,
-            child: MyForm(
-              texts: text,
-              hintTexts: hintTextList,
-              buttonText: "Iniciar Sesión",
-              onPressed: () async => await Get.toNamed("/homepage"),
-              bottomWidget: Container(
-                child: Row(
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            const Text("Login"),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.5,
+              color: Colors.red,
+              child: MyForm(
+                texts: text,
+                hintTexts: hintTextList,
+                buttonText: "Iniciar Sesión",
+                onPressed: () async => await Get.toNamed("/homepage"),
+                bottomWidget: const Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     CheckButton(text: "Recuerdame"),
                     Text("Olvide mi Contraseña?")
                   ],
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

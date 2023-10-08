@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class InteractiveDataTable extends StatelessWidget {
-  const InteractiveDataTable({super.key});
+class InteractiveDataTable extends StatefulWidget {
+  const InteractiveDataTable(
+      {super.key, required this.columnsText, required this.dataRows});
+  final List<String> columnsText;
+  final List<DataRow> dataRows;
 
+  @override
+  State<InteractiveDataTable> createState() => _InteractiveDataTableState();
+}
+
+class _InteractiveDataTableState extends State<InteractiveDataTable> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -11,230 +19,18 @@ class InteractiveDataTable extends StatelessWidget {
 
     return Container(
       color: Colors.white,
+      height: 200,
       margin: const EdgeInsets.all(10),
-      child: ConstrainedBox(
-        constraints: const BoxConstraints.expand(width: 900),
-        child: InteractiveViewer(
-          constrained: false,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
           child: DataTable(
-            columns: const <DataColumn>[
-              DataColumn(label: Text('Saldo inicial')),
-              DataColumn(label: Text('Número de la cuota')),
-              DataColumn(label: Text('Cuota')),
-              DataColumn(label: Text('Interés')),
-              DataColumn(label: Text('Abono a capital')),
-              DataColumn(label: Text('Saldo del período')),
+            columns: <DataColumn>[
+              ...widget.columnsText.map((columnText) =>
+                  DataColumn(label: SizedBox(child: Text(columnText)))),
             ],
-            rows: const <DataRow>[
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Row 1, Col 1')),
-                DataCell(Text('Row 1, Col 2')),
-                DataCell(Text('Row 1, Col 3')),
-                DataCell(Text('Row 1, Col 4')),
-                DataCell(Text('Row 1, Col 5')),
-                DataCell(Text('Row 1, Col 6')),
-              ]),
-            ],
+            rows: widget.dataRows,
           ),
         ),
       ),

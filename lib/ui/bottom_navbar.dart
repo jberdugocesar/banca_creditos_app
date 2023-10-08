@@ -1,17 +1,23 @@
-import 'package:banca_creditos_app/ui/pages/credit_history.dart';
-import 'package:banca_creditos_app/ui/pages/home_page.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:loggy/loggy.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:banca_creditos_app/ui/pages/credit_history.dart';
+import 'package:banca_creditos_app/ui/pages/home_page.dart';
 
-class NavBar extends StatefulWidget {
-  const NavBar({super.key});
+int bottomNavBarIndex = 0;
+
+class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<NavBar> createState() => _NavBarState();
+  State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
-class _NavBarState extends State<NavBar> {
+class _BottomNavBarState extends State<BottomNavBar> {
   late PersistentTabController _controller;
 
   @override
@@ -45,7 +51,7 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     //Put controlelrs here
-
+    logInfo("this is the index ${_controller.index}");
     return PersistentTabView(
       context,
       controller: _controller,

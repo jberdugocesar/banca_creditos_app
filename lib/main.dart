@@ -5,8 +5,10 @@ import 'package:banca_creditos_app/ui/pages/register.dart';
 import 'package:banca_creditos_app/ui/pages/start_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loggy/loggy.dart';
 
 void main() {
+  Loggy.initLoggy();
   runApp(const MyApp());
 }
 
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: "/", page: () => const StartPage()),
         GetPage(name: "/login", page: () => LoginPage()),
         GetPage(name: "/register", page: () => RegisterPage()),
-        GetPage(name: "/homepage", page: () => const NavBar())
+        GetPage(name: "/homepage", page: () => const BottomNavBar())
       ],
       theme: ThemeData(
         // This is the theme of your application.
