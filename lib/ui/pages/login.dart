@@ -18,22 +18,18 @@ class LoginPage extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             const Text("Login"),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.5,
-              color: Colors.red,
-              child: MyForm(
-                texts: text,
-                hintTexts: hintTextList,
-                buttonText: "Iniciar Sesión",
-                onPressed: () async => await Get.toNamed("/homepage"),
-                bottomWidget: const Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    CheckButton(text: "Recuerdame"),
-                    Text("Olvide mi Contraseña?")
-                  ],
-                ),
+            MyForm(
+              texts: text,
+              hintTexts: hintTextList,
+              buttonText: "Iniciar Sesión",
+              onPressed: () async => await Get.toNamed("/homepage"),
+              bottomWidget: const Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  CheckButton(text: "Recuerdame"),
+                  Text("Olvide mi Contraseña?")
+                ],
               ),
             )
           ],
