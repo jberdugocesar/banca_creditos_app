@@ -20,33 +20,37 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text("REGISTER"),
-          const Text("Maybe Bold"),
-          Container(
-            height: 600,
-            color: Colors.purple,
-            child: MyForm(
+        body: SafeArea(
+            child: LayoutBuilder(
+      builder: (context, constraints) => SizedBox(
+        width: screenWidth,
+        height: screenHeight,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text("REGISTER"),
+            const Text("Maybe Bold"),
+            MyForm(
               texts: textList,
               hintTexts: hintTextList,
-              bottomWidget: const CheckButton(
-                text: "Terminos y condiciones",
-              ),
+              /* bottomWidget: Container(
+                color: Colors.amber,
+                child: const CheckButton(
+                  text: "Terminos y condiciones",
+                ),
+              ), */
               buttonText: "Continuar",
               onPressed: () async => await Get.toNamed("/homepage"),
             ),
-          ),
-          Container(
-            color: Colors.blue,
-            height: 100,
-          ),
-          const Text("Final")
-        ],
+            const Text("Final")
+          ],
+        ),
       ),
-    );
+    )));
   }
 }

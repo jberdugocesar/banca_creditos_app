@@ -32,21 +32,18 @@ class HomePage extends StatelessWidget {
             const Text("HomePage"),
             const Text(
                 "Ingresa los datos de tu credito según lo que necesites"),
-            SizedBox(
-              height: 500,
-              child: MyForm(
-                  texts: text,
-                  hintTexts: hintText,
-                  buttonText: "Simular",
-                  onPressed: () {
-                    PersistentNavBarNavigator.pushNewScreen(
-                      context,
-                      screen: const CreditSimulationPage(),
-                      withNavBar: true, // OPTIONAL VALUE. True by default.
-                      pageTransitionAnimation: PageTransitionAnimation.slideUp,
-                    );
-                  }),
-            )
+            MyForm(
+                texts: text,
+                hintTexts: hintText,
+                buttonText: "Simular",
+                onPressed: () {
+                  PersistentNavBarNavigator.pushNewScreen(
+                    context,
+                    screen: const CreditSimulationPage(),
+                    withNavBar: true, // OPTIONAL VALUE. True by default.
+                    pageTransitionAnimation: PageTransitionAnimation.slideUp,
+                  );
+                })
           ],
         ),
       ),
