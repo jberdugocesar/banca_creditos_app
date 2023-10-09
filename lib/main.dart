@@ -1,14 +1,32 @@
+import 'package:banca_creditos_app/domain/repositories/credit_repository.dart';
+import 'package:banca_creditos_app/domain/repositories/user_repository.dart';
+import 'package:banca_creditos_app/firebase_options.dart';
 import 'package:banca_creditos_app/ui/bottom_navbar.dart';
+import 'package:banca_creditos_app/ui/controllers/auth_controller.dart';
+import 'package:banca_creditos_app/ui/controllers/credit_controller.dart';
+import 'package:banca_creditos_app/ui/controllers/user_controller.dart';
 import 'package:banca_creditos_app/ui/pages/home_page.dart';
 import 'package:banca_creditos_app/ui/pages/login.dart';
 import 'package:banca_creditos_app/ui/pages/register.dart';
 import 'package:banca_creditos_app/ui/pages/start_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 
-void main() {
+void main() async {
   Loggy.initLoggy();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  Get.put(CreditRepository());
+  Get.put(UserRepository());
+  Get.put(UserController());
+  Get.put(AuthenticationController());
+  Get.put(CreditController());
+
   runApp(const MyApp());
 }
 

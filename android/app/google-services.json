@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "834399039662",
+    "firebase_url": "https://bancacreditosapp-default-rtdb.firebaseio.com",
+    "project_id": "bancacreditosapp",
+    "storage_bucket": "bancacreditosapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:834399039662:android:2c18e60f1c4e4020c03d3f",
+        "android_client_info": {
+          "package_name": "com.example.banca_creditos_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLs_aJ2tMoyE-8-u981ReEIxk76nkNOFA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

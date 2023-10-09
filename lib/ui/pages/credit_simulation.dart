@@ -1,10 +1,8 @@
+import 'package:banca_creditos_app/ui/controllers/credit_controller.dart';
 import 'package:banca_creditos_app/ui/pages/credit_info_menu.dart';
 import 'package:banca_creditos_app/ui/pages/credit_save_confirmation_menu.dart';
-import 'package:banca_creditos_app/ui/widgets/form.dart';
 import 'package:banca_creditos_app/ui/widgets/table.dart';
-import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class CreditSimulationPage extends StatelessWidget {
@@ -115,8 +113,7 @@ class CreditSimulationPage extends StatelessWidget {
         ),
         builder: (context) => Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: SizedBox(
-                  height: height * 0.35, child: const CreditInfoMenu()),
+              child: SizedBox(height: height * 0.35, child: CreditInfoMenu()),
             ));
   }
 }

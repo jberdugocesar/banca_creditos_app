@@ -6,6 +6,7 @@ class MyForm extends StatefulWidget {
   final String buttonText;
   final Function onPressed;
   final Widget? bottomWidget;
+  final List<TextEditingController?>? controllers;
 
   const MyForm(
       {required this.texts,
@@ -13,7 +14,8 @@ class MyForm extends StatefulWidget {
       super.key,
       this.bottomWidget,
       required this.buttonText,
-      required this.onPressed});
+      required this.onPressed,
+      this.controllers});
 
   @override
   State<MyForm> createState() => _MyFormState();
@@ -46,6 +48,7 @@ class _MyFormState extends State<MyForm> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextFormField(
+                            controller: widget.controllers?[index],
                             decoration: InputDecoration(
                               border: const OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black),
@@ -68,18 +71,15 @@ class _MyFormState extends State<MyForm> {
                   ),
                 ),
                 widget.bottomWidget ?? const SizedBox.shrink(),
-                Container(
-                  color: Colors.amber,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          widget.onPressed();
-                        }
-                      },
-                      child: Text(widget.buttonText),
-                    ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        widget.onPressed();
+                      }
+                    },
+                    child: Text(widget.buttonText),
                   ),
                 ),
               ],

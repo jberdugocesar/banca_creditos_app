@@ -1,7 +1,11 @@
+import 'package:banca_creditos_app/ui/controllers/credit_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CreditInfoMenu extends StatelessWidget {
-  const CreditInfoMenu({Key? key}) : super(key: key);
+  CreditInfoMenu({Key? key}) : super(key: key);
+
+  CreditController creditController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +20,8 @@ class CreditInfoMenu extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text("Cuota máxima del prestamo"),
-              const Text("Valor total a pagar: "),
+              Obx(() => Text(
+                  "Valor total a pagar: ${creditController.maximumCreditAvailable}")),
               ElevatedButton(onPressed: () {}, child: const Text("Cerrar")),
             ],
           ),
