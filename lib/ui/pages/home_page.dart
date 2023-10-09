@@ -76,8 +76,17 @@ class _HomePageState extends State<HomePage> {
                 controllers: textControllers,
                 onPressed: () {
                   try {
+                    double? interestRate =
+                        double.tryParse(textControllers[0].text);
                     double? salary = double.tryParse(textControllers[1].text);
+
+                    double? initialValue =
+                        double.tryParse(textControllers[2].text);
+                    double? nCuotes = double.tryParse(textControllers[3].text);
+
                     creditController.calculateMaximumCreditAvailable(salary!);
+                    creditController.createSimulationCredit(
+                        initialValue!, nCuotes!, interestRate!);
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Error parsing the fields")));
@@ -85,30 +94,13 @@ class _HomePageState extends State<HomePage> {
 
                   PersistentNavBarNavigator.pushNewScreen(
                     context,
-                    screen: const CreditSimulationPage(),
+                    screen: CreditSimulationPage(),
                     withNavBar: true, // OPTIONAL VALUE. True by default.
                     pageTransitionAnimation: PageTransitionAnimation.slideUp,
                   );
                 }),
             ElevatedButton(
               onPressed: () {
-                try {
-                  double? interestRate =
-                      double.tryParse(textControllers[0].text);
-
-                  double? initialValue =
-                      double.tryParse(textControllers[2].text);
-                  double? nCuotes = double.tryParse(textControllers[3].text);
-
-                  logInfo(creditController.maximumCreditAvailable);
-
-                  creditController.createSimulationCredit(
-                      initialValue!, nCuotes!, interestRate!);
-                } catch (e) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Error parsing the fields")));
-                }
-
                 /*  authenticationController.signUp(
                     email: "hola@hotmail.com", password: "123456");
                 authenticationController.login("hola@hotmail.com", "123456"); */
@@ -119,31 +111,7 @@ class _HomePageState extends State<HomePage> {
                     personalId: "XD",
                     uid: authenticationController.getUid());
                 logInfo("this is HomePage Prueba: ${userController.userList}");
-                logInfo(userController.userList);
-
-                creditController.addNewCredit(
-                    creditRows: [
-                      CreditRow(
-                          initialValue: 1.toDouble(),
-                          cuoteNumber: 3.toDouble(),
-                          cuoteValue: 3.toDouble(),
-                          interestPayment: 4.toDouble(),
-                          capitalPayment: 5.toDouble(),
-                          balance: 6.toDouble()),
-                      CreditRow(
-                          initialValue: 1.toDouble(),
-                          cuoteNumber: 3.toDouble(),
-                          cuoteValue: 3.toDouble(),
-                          interestPayment: 4.toDouble(),
-                          capitalPayment: 5.toDouble(),
-                          balance: 6.toDouble())
-                    ],
-                    cuoteNumber: 22.toDouble(),
-                    dateAdded: DateTime.now(),
-                    initialValue: 1000.toDouble(),
-                    interestRate: 0.02.toDouble());
-                logInfo(
-                    "this is Credits: ${creditController.creditHistoryList}"); */
+                logInfo(userController.userList);*/
               },
               child: const Text("Prueba", style: TextStyle(color: Colors.red)),
             )

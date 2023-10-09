@@ -1,5 +1,6 @@
 // Controlador usado para manejar los usuarios del chat
 import 'dart:async';
+import 'dart:ffi';
 import 'dart:math';
 import 'package:banca_creditos_app/domain/models/credit.dart';
 import 'package:banca_creditos_app/domain/models/user.dart';
@@ -10,13 +11,13 @@ import 'package:loggy/loggy.dart';
 
 class CreditController extends GetxController {
   final _creditHistoryList = <CreditHistory>[].obs;
-  final _creditSimulationList = <CreditRow>[].obs;
+  final RxList<CreditRow> _creditSimulationList = <CreditRow>[].obs;
 
   final _maximumCreditAvailable = 0.obs;
 
   get creditHistoryList => _creditHistoryList;
 
-  get creditSimulationList => _creditSimulationList;
+  RxList<CreditRow> get creditSimulationList => _creditSimulationList;
 
   get maximumCreditAvailable => _maximumCreditAvailable;
 
@@ -32,16 +33,17 @@ class CreditController extends GetxController {
     double capitalPayment;
     double interestPayment;
     double cuoteValue;
-    double balanceOfPeriod = creditInitialValue.toDouble();
-    double i = 0;
     List<CreditRow> rows = [];
+    double creditBefore = creditInitialValue;
+    double balanceOfPeriod = creditInitialValue.toDouble();
+    double cont = 1;
 
     double fixedCuoteValue = creditInitialValue *
             interestRate /
             (1 - pow((1 + interestRate), cuoteNumber)) -
         interestRate * creditInitialValue;
 
-    while (i < cuoteNumber) {
+    while (cont < cuoteNumber + 1) {
       interestPayment = interestRate * balanceOfPeriod;
 
       capitalPayment = fixedCuoteValue + interestPayment;
@@ -51,19 +53,24 @@ class CreditController extends GetxController {
       balanceOfPeriod = (balanceOfPeriod + cuoteValue + interestPayment);
 
       rows.add(CreditRow(
-          initialValue: creditInitialValue,
-          cuoteNumber: cuoteNumber,
-          cuoteValue: capitalPayment,
+          initialValue: creditBefore,
+          cuoteNumber: cont,
+          cuoteValue: cuoteValue,
           interestPayment: interestPayment,
           capitalPayment: capitalPayment,
           balance: balanceOfPeriod));
 
+      creditBefore = balanceOfPeriod;
+
       logInfo(
-          "Iteration $i \n with balancedPeriod: $balanceOfPeriod \n interestPayment: $interestPayment \n capitalPayment: $capitalPayment \n and cuoteValue: $cuoteValue");
-      i++;
+          "Iteration $cont \n with balancedPeriod: $balanceOfPeriod \n interestPayment: $interestPayment \n capitalPayment: $capitalPayment \n and cuoteValue: $cuoteValue");
+      cont++;
     }
-    //Save State
     _creditSimulationList.value = rows;
+  }
+
+  void clearSimulationList() {
+    _creditSimulationList.value = [];
   }
 
   void calculateMaximumCreditAvailable(double salary) {
@@ -71,7 +78,9 @@ class CreditController extends GetxController {
     logInfo("This is here and changed value ");
   }
 
-  void saveToCreditHistory(List<String> currentTable) {}
+  void saveToCreditHistory() {
+    logInfo("Tabla con id: ELID guardada en el historial");
+  }
 
   void currentCreditTableToExcel() {}
 

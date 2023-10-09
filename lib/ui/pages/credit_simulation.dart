@@ -2,11 +2,16 @@ import 'package:banca_creditos_app/ui/controllers/credit_controller.dart';
 import 'package:banca_creditos_app/ui/pages/credit_info_menu.dart';
 import 'package:banca_creditos_app/ui/pages/credit_save_confirmation_menu.dart';
 import 'package:banca_creditos_app/ui/widgets/table.dart';
+import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:loggy/loggy.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class CreditSimulationPage extends StatelessWidget {
-  const CreditSimulationPage({Key? key}) : super(key: key);
+  CreditSimulationPage({Key? key}) : super(key: key);
+
+  CreditController creditController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -43,32 +48,42 @@ class CreditSimulationPage extends StatelessWidget {
                                 size: 60,
                               )),
                           Container(
-                            color: Colors.amber,
-                            child: SizedBox(
-                                height: screenHeight * 0.44,
-                                child: const InteractiveDataTable(
-                                  columnsText: [
-                                    "Número de la cuota",
-                                    "Saldo inicial",
-                                    "Cuota",
-                                    "Interés",
-                                    "Abono a capital",
-                                    "Saldo del período"
-                                  ],
-                                  dataRows: <DataRow>[
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                      DataCell(Text('Row 1, Col 5')),
-                                      DataCell(Text('Row 1, Col 6')),
-                                    ]),
-                                  ],
-                                )),
-                          ),
+                              color: Colors.amber,
+                              child: SizedBox(
+                                  height: screenHeight * 0.44,
+                                  child: InteractiveDataTable(
+                                    columnsText: const [
+                                      "Número de la cuota",
+                                      "Saldo inicial",
+                                      "Cuota",
+                                      "Interés",
+                                      "Abono a capital",
+                                      "Saldo del período"
+                                    ],
+                                    dataRows: <DataRow>[
+                                      ...creditController.creditSimulationList
+                                          .map(
+                                        (element) => DataRow(cells: <DataCell>[
+                                          DataCell(Text(
+                                              element.cuoteNumber.toString())),
+                                          DataCell(Text(
+                                              element.initialValue.toString())),
+                                          DataCell(Text(
+                                              element.cuoteValue.toString())),
+                                          DataCell(Text(element.interestPayment
+                                              .toString())),
+                                          DataCell(Text(element.capitalPayment
+                                              .toString())),
+                                          DataCell(
+                                              Text(element.balance.toString())),
+                                        ]),
+                                      )
+                                    ],
+                                  ))),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              logInfo("Descargar tabla");
+                            },
                             child: const Text("Descargar Tabla"),
                           ),
                           ElevatedButton(
