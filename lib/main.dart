@@ -1,5 +1,3 @@
-import 'package:banca_creditos_app/domain/repositories/credit_repository.dart';
-import 'package:banca_creditos_app/domain/repositories/user_repository.dart';
 import 'package:banca_creditos_app/firebase_options.dart';
 import 'package:banca_creditos_app/ui/bottom_navbar.dart';
 import 'package:banca_creditos_app/ui/controllers/auth_controller.dart';
@@ -21,8 +19,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   Get.put(AuthenticationController());
-  //Get.put(CreditRepository());
-  //Get.put(UserRepository());
   Get.put(UserController());
   Get.put(CreditController());
 
