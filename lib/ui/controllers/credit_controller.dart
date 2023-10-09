@@ -10,14 +10,21 @@ import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 
 class CreditController extends GetxController {
-  final _creditHistoryList = <CreditHistory>[].obs;
-  final RxList<CreditRow> _creditSimulationList = <CreditRow>[].obs;
+  final RxList<CreditRow> _currentCreditSimulation = <CreditRow>[].obs;
+
+  final RxDouble _currentInitialCredit = 0.0.obs;
+  final RxDouble _currentInterestRate = 0.0.obs;
+  final RxDouble _currentCuoteNumber = 0.0.obs;
 
   final _maximumCreditAvailable = 0.obs;
 
-  get creditHistoryList => _creditHistoryList;
+  RxDouble get currentInitialCredit => _currentInitialCredit;
 
-  RxList<CreditRow> get creditSimulationList => _creditSimulationList;
+  RxDouble get currentInterestRate => _currentInterestRate;
+
+  RxDouble get currentCuoteNumber => _currentCuoteNumber;
+
+  RxList<CreditRow> get currentCreditSimulation => _currentCreditSimulation;
 
   get maximumCreditAvailable => _maximumCreditAvailable;
 
@@ -27,9 +34,18 @@ class CreditController extends GetxController {
       .child(AuthenticationController().getUid())
       .child("creditHistoryList");
 
+  void updateCurrentSimulationCreditValues(
+      double creditInitialValue, double cuoteNumber, double interestRate) {
+    _currentInitialCredit.value = creditInitialValue;
+    _currentInterestRate.value = interestRate;
+    _currentCuoteNumber.value = cuoteNumber;
+  }
+
   void createSimulationCredit(
       double creditInitialValue, double cuoteNumber, double interestRate) {
-    logInfo("hello there");
+    updateCurrentSimulationCreditValues(
+        creditInitialValue, cuoteNumber, interestRate);
+
     double capitalPayment;
     double interestPayment;
     double cuoteValue;
@@ -66,11 +82,11 @@ class CreditController extends GetxController {
           "Iteration $cont \n with balancedPeriod: $balanceOfPeriod \n interestPayment: $interestPayment \n capitalPayment: $capitalPayment \n and cuoteValue: $cuoteValue");
       cont++;
     }
-    _creditSimulationList.value = rows;
+    _currentCreditSimulation.value = rows;
   }
 
   void clearSimulationList() {
-    _creditSimulationList.value = [];
+    _currentCreditSimulation.value = [];
   }
 
   void calculateMaximumCreditAvailable(double salary) {
@@ -78,31 +94,34 @@ class CreditController extends GetxController {
     logInfo("This is here and changed value ");
   }
 
-  void saveToCreditHistory() {
-    logInfo("Tabla con id: ELID guardada en el historial");
+  void addCurrentSimulationToCreditHistory() {
+    addNewCredit(
+        cuoteNumber: _currentCuoteNumber.value,
+        dateAdded: DateTime.now(),
+        interestRate: _currentInterestRate.value,
+        initialValue: _currentInitialCredit.value);
+    logInfo("Tabla con ${_currentCuoteNumber.value} guardada en el historial");
   }
 
-  void currentCreditTableToExcel() {}
+  void currentCreditTableToExcel() {
+    logInfo("currentCreditTableToExcel");
+  }
 
-  /* // lista en la que se almacenan los uaurios, la misma es observada por la UI
-  final _creditHistoriyList = <CreditHistory>[].obs;
-
-  final databaseRef =
-      FirebaseDatabase.instance.ref().child("userList").child("creditList");
+  // lista en la que se almacenan los uaurios, la misma es observada por la UI
+  final RxList<CreditHistory> _creditList = <CreditHistory>[].obs;
 
   late StreamSubscription<DatabaseEvent> newEntryStreamSubscription;
 
   late StreamSubscription<DatabaseEvent> updateEntryStreamSubscription;
 
-  get creditHistoryList => _creditHistoriyList;
+  RxList<CreditHistory> get creditList => _creditList;
 
   // método para comenzar a escuchar cambios en la "tabla" userList de la base de
   // datos
   void start() {
-    _creditHistoriyList.clear();
+    _creditList.clear();
 
-    newEntryStreamSubscription =
-        databaseRef.child("creditList").onChildAdded.listen(_onEntryAdded);
+    newEntryStreamSubscription = databaseRef.onChildAdded.listen(_onEntryAdded);
 
     /* updateEntryStreamSubscription =
         databaseRef.child("userList").onChildChanged.listen(_onEntryChanged); */
@@ -117,25 +136,28 @@ class CreditController extends GetxController {
   // cuando obtenemos un evento con un nuevo credito lo agregamos a _credits
   _onEntryAdded(DatabaseEvent event) {
     final json = event.snapshot.value as Map<dynamic, dynamic>;
-    _creditHistoriyList.add(CreditHistory.fromJson(event.snapshot, json));
+    logInfo("this is $json");
+    _creditList.add(CreditHistory.fromJson(event.snapshot, json));
   }
 
   // método para crear un nuevo credito
   Future<void> addNewCredit(
-      {initialValue, cuoteNumber, dateAdded, interestRate, creditRows}) async {
+      {required double initialValue,
+      required double cuoteNumber,
+      required DateTime dateAdded,
+      required double interestRate}) async {
     logInfo(
         "Creating creditHistory in realTime for user: ${AuthenticationController().getUid()}");
     try {
       await databaseRef.push().set(CreditHistory(
-              initialValue: initialValue,
-              cuoteNumber: cuoteNumber,
-              dateAdded: dateAdded,
-              interestRate: interestRate,
-              creditRows: creditRows)
-          .toJson());
+            initialValue: initialValue,
+            cuoteNumber: cuoteNumber,
+            dateAdded: dateAdded,
+            interestRate: interestRate,
+          ).toJson());
     } catch (error) {
       logError(error);
       return Future.error(error);
     }
-  } */
+  }
 }

@@ -4,14 +4,16 @@ import 'package:banca_creditos_app/ui/pages/credit_save_confirmation_menu.dart';
 import 'package:banca_creditos_app/ui/widgets/table.dart';
 import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class CreditSimulationPage extends StatelessWidget {
-  CreditSimulationPage({Key? key}) : super(key: key);
+  CreditSimulationPage({Key? key, required this.saveButton}) : super(key: key);
+  final bool saveButton;
 
-  CreditController creditController = Get.find();
+  final CreditController creditController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -38,15 +40,6 @@ class CreditSimulationPage extends StatelessWidget {
                           const Text(
                               "Te presentamos en tu tabla de amortización"),
                           const Text("Tabla de créditos"),
-                          IconButton(
-                              onPressed: () {
-                                showCreditResumeMenuSheet(
-                                    screenHeight, context);
-                              },
-                              icon: const Icon(
-                                Icons.info,
-                                size: 60,
-                              )),
                           Container(
                               color: Colors.amber,
                               child: SizedBox(
@@ -61,7 +54,8 @@ class CreditSimulationPage extends StatelessWidget {
                                       "Saldo del período"
                                     ],
                                     dataRows: <DataRow>[
-                                      ...creditController.creditSimulationList
+                                      ...creditController
+                                          .currentCreditSimulation
                                           .map(
                                         (element) => DataRow(cells: <DataCell>[
                                           DataCell(Text(
@@ -86,11 +80,14 @@ class CreditSimulationPage extends StatelessWidget {
                             },
                             child: const Text("Descargar Tabla"),
                           ),
-                          ElevatedButton(
-                            onPressed: () => showCreditConfirmationMenuSheet(
-                                screenHeight, context),
-                            child: const Text("Guardar Cotización"),
-                          ),
+                          saveButton != false
+                              ? ElevatedButton(
+                                  onPressed: () =>
+                                      showCreditConfirmationMenuSheet(
+                                          screenHeight, context),
+                                  child: const Text("Guardar Cotización"),
+                                )
+                              : const SizedBox.shrink(),
                         ],
                       ),
                     ),
@@ -116,19 +113,5 @@ class CreditSimulationPage extends StatelessWidget {
             ));
   }
 
-  Future<dynamic> showCreditResumeMenuSheet(
-      double height, BuildContext context) {
-    return showMaterialModalBottomSheet(
-        backgroundColor: Colors.white70,
-        elevation: 0.1,
-        useRootNavigator: false,
-        context: context,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(60),
-        ),
-        builder: (context) => Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: SizedBox(height: height * 0.35, child: CreditInfoMenu()),
-            ));
-  }
+  
 }

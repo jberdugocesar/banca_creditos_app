@@ -26,6 +26,7 @@ class _InteractiveDataTableState extends State<InteractiveDataTable> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: DataTable(
+            
             columns: <DataColumn>[
               ...widget.columnsText.map((columnText) =>
                   DataColumn(label: SizedBox(child: Text(columnText)))),

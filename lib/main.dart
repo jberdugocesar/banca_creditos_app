@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: "/", page: () => const StartPage()),
         GetPage(name: "/login", page: () => LoginPage()),
         GetPage(name: "/register", page: () => RegisterPage()),
-        GetPage(name: "/homepage", page: () => const BottomNavBar())
+        GetPage(name: "/homepage", page: () => BottomNavBar())
       ],
       theme: ThemeData(
         // This is the theme of your application.

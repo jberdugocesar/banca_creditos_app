@@ -18,24 +18,28 @@ class SaveCreditConfirmationMenu extends StatelessWidget {
           topLeft: Radius.circular(40), topRight: Radius.circular(40)),
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text("HOLA"),
-              const Text("MAS HOLA"),
-              ElevatedButton(
-                  onPressed: () {
-                    creditController.saveToCreditHistory();
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Text("Estas seguro que deseas guardar esta simulación?"),
+                const Text(
+                    "La cotización realizada la puedes consultar en tu historial de credito"),
+                ElevatedButton(
+                    onPressed: () {
+                      creditController.addCurrentSimulationToCreditHistory();
 
-                    var snackBar = const SnackBar(
-                        content: Text('Simulación de credito guardada'));
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  },
-                  child: const Text("Guardar")),
-              ElevatedButton(onPressed: () {}, child: const Text("Cancelar")),
-            ],
+                      var snackBar = const SnackBar(
+                          content: Text('Simulación de credito guardada'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
+                    child: const Text("Guardar")),
+                ElevatedButton(onPressed: () {}, child: const Text("Cancelar")),
+              ],
+            ),
           ),
         ),
       ),

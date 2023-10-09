@@ -45,14 +45,12 @@ class CreditHistory {
   double cuoteNumber;
   DateTime dateAdded;
   double interestRate;
-  List<CreditRow> creditRows;
 
   CreditHistory({
     required this.initialValue,
     required this.cuoteNumber,
     required this.dateAdded,
     required this.interestRate,
-    required this.creditRows,
   });
 
   toJson() {
@@ -61,23 +59,12 @@ class CreditHistory {
       "cuoteNumber": cuoteNumber,
       'interestRate': interestRate,
       'dateAdded': dateAdded.toIso8601String(),
-      "creditRows": [
-        ...creditRows.map((e) => CreditRow(
-              initialValue: e.initialValue,
-              cuoteNumber: e.cuoteNumber,
-              cuoteValue: e.cuoteValue,
-              interestPayment: e.interestPayment,
-              capitalPayment: e.capitalPayment,
-              balance: e.balance,
-            ).toJson())
-      ]
     };
   }
 
   CreditHistory.fromJson(DataSnapshot snapshot, Map<dynamic, dynamic> json)
-      : initialValue = json["initialValue"],
-        cuoteNumber = json["cuoteNumber"],
+      : initialValue = double.parse(json["initialValue"].toString()) * 1.0,
+        cuoteNumber = double.parse(json["cuoteNumber"].toString()) * 1.0,
         dateAdded = DateTime.parse(json["dateAdded"]),
-        interestRate = json["interestRate"],
-        creditRows = json["creditRows"];
+        interestRate = double.parse(json["interestRate"].toString());
 }

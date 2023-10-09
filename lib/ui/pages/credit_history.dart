@@ -1,11 +1,17 @@
+import 'package:banca_creditos_app/ui/controllers/credit_controller.dart';
+import 'package:banca_creditos_app/ui/pages/credit_simulation.dart';
 import 'package:banca_creditos_app/ui/widgets/form.dart';
 import 'package:banca_creditos_app/ui/widgets/table.dart';
 import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loggy/loggy.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class CreditHistoryPage extends StatelessWidget {
-  const CreditHistoryPage({Key? key}) : super(key: key);
+  CreditHistoryPage({Key? key}) : super(key: key);
+
+  final CreditController creditController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +29,7 @@ class CreditHistoryPage extends StatelessWidget {
                       color: Colors.pink,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
@@ -31,144 +38,70 @@ class CreditHistoryPage extends StatelessWidget {
                                   "Resultado de tu simulador de credito")),
                           const Text(
                               "Te presentamos en tu tabla de amortización"),
-                          const Text("Tabla de créditos"),
+                          const Text("Historial de créditos"),
                           Container(
                             color: Colors.amber,
                             child: SizedBox(
-                                height: screenHeight * 0.44,
-                                child: const InteractiveDataTable(
-                                  columnsText: [
+                                height: screenHeight * 0.6,
+                                child: InteractiveDataTable(
+                                  columnsText: const [
                                     "Monto del crédito",
                                     "Fecha de generación",
                                     "Número de cuotas",
                                     "Interés",
                                   ],
                                   dataRows: <DataRow>[
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                    ]),
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                    ]),
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                    ]),
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                    ]),
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                    ]),
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                    ]),
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                    ]),
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                    ]),
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                    ]),
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                    ]),
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                    ]),
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                    ]),
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                    ]),
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                    ]),
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                    ]),
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                    ]),
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                    ]),
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                    ]),
-                                    DataRow(cells: <DataCell>[
-                                      DataCell(Text('Row 1, Col 1')),
-                                      DataCell(Text('Row 1, Col 2')),
-                                      DataCell(Text('Row 1, Col 3')),
-                                      DataCell(Text('Row 1, Col 4')),
-                                    ]),
+                                    ...creditController.creditList.map(
+                                      (credit) => DataRow(
+                                          onLongPress: () {
+                                            logInfo(
+                                                "this is element ${creditController.creditList.indexOf(credit)}of creditHistory");
+                                            creditController
+                                                .createSimulationCredit(
+                                                    credit.initialValue,
+                                                    credit.cuoteNumber,
+                                                    credit.interestRate);
+                                            showCreditSimulationOfSelectedRow(
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .height,
+                                                context);
+                                          },
+                                          cells: <DataCell>[
+                                            DataCell(Text(credit.initialValue
+                                                .toString())),
+                                            DataCell(Text(
+                                                credit.dateAdded.toString())),
+                                            DataCell(Text(
+                                                credit.cuoteNumber.toString())),
+                                            DataCell(Text(credit.interestRate
+                                                .toString())),
+                                          ]),
+                                    )
                                   ],
                                 )),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: const Text("Descargar Tabla"),
                           ),
                         ],
                       ),
                     ),
                   ))),
     );
+  }
+
+  Future<dynamic> showCreditSimulationOfSelectedRow(
+      double height, BuildContext context) {
+    return showMaterialModalBottomSheet(
+        backgroundColor: Colors.white70,
+        elevation: 0.1,
+        useRootNavigator: false,
+        context: context,
+        builder: (context) => Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: SizedBox(
+                  height: height,
+                  child: CreditSimulationPage(
+                    saveButton: false,
+                  )),
+            ));
   }
 }

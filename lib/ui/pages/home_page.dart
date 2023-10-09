@@ -69,6 +69,15 @@ class _HomePageState extends State<HomePage> {
             const Text("HomePage"),
             const Text(
                 "Ingresa los datos de tu credito según lo que necesites"),
+            IconButton(
+                onPressed: () {
+                  showCreditResumeMenuSheet(
+                      MediaQuery.of(context).size.height, context);
+                },
+                icon: const Icon(
+                  Icons.info,
+                  size: 60,
+                )),
             MyForm(
                 texts: text,
                 hintTexts: hintText,
@@ -94,16 +103,16 @@ class _HomePageState extends State<HomePage> {
 
                   PersistentNavBarNavigator.pushNewScreen(
                     context,
-                    screen: CreditSimulationPage(),
+                    screen: CreditSimulationPage(saveButton: true),
                     withNavBar: true, // OPTIONAL VALUE. True by default.
                     pageTransitionAnimation: PageTransitionAnimation.slideUp,
                   );
                 }),
             ElevatedButton(
               onPressed: () {
-                /*  authenticationController.signUp(
+                /*authenticationController.signUp(
                     email: "hola@hotmail.com", password: "123456");
-                authenticationController.login("hola@hotmail.com", "123456"); */
+                authenticationController.login("hola@hotmail.com", "123456");*/
 
                 /* userController.createUser(
                     email: "hola2",
@@ -119,5 +128,21 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  Future<dynamic> showCreditResumeMenuSheet(
+      double height, BuildContext context) {
+    return showMaterialModalBottomSheet(
+        backgroundColor: Colors.white70,
+        elevation: 0.1,
+        useRootNavigator: false,
+        context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(60),
+        ),
+        builder: (context) => Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: SizedBox(height: height * 0.35, child: CreditInfoMenu()),
+            ));
   }
 }
