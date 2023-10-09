@@ -23,18 +23,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<String> text = [
-    "Tipo de Credito",
     "Salario Base",
     "Monto a prestar",
     "Número de cuotas"
   ];
 
-  final List<String> hintText = [
-    "Selecciona el tipo de credito",
-    "\$ 1.000.000",
-    "\$ 20.000.000",
-    "84"
-  ];
+  final List<String> hintText = ["\$ 1.000.000", "\$ 20.000.000", "84"];
 
   UserController userController = Get.find();
   CreditController creditController = Get.find();
@@ -42,6 +36,13 @@ class _HomePageState extends State<HomePage> {
 
   late int _nroOfForms;
   late List<TextEditingController> textControllers;
+
+  String dropdownValue = 'Credito de vehiculo';
+  List<String> dropDownItems = [
+    'Credito de vehiculo',
+    'Credito de vivienda',
+    'Credito de libre Inversion'
+  ];
 
   @override
   void initState() {
@@ -71,7 +72,7 @@ class _HomePageState extends State<HomePage> {
             IconButton(
                 onPressed: () {
                   try {
-                    double? salary = double.tryParse(textControllers[1].text);
+                    double? salary = double.tryParse(textControllers[0].text);
                     creditController.calculateMaximumCreditAvailable(salary!);
 
                     showCreditResumeMenuSheet(
@@ -85,6 +86,27 @@ class _HomePageState extends State<HomePage> {
                   Icons.info,
                   size: 60,
                 )),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: DropdownButtonFormField(
+                value: dropdownValue,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    dropdownValue = newValue!;
+                  });
+                },
+                items:
+                    dropDownItems.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(
+                      value,
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
             MyForm(
                 texts: text,
                 hintTexts: hintText,
@@ -92,12 +114,29 @@ class _HomePageState extends State<HomePage> {
                 controllers: textControllers,
                 onPressed: () {
                   try {
-                    double? interestRate =
-                        double.tryParse(textControllers[0].text);
+                    double? interestRate;
+                    switch (dropdownValue) {
+                      case 'Credito de vehiculo':
+                        {
+                          interestRate = 0.03;
+                        }
+                        break;
+                      case 'Credito de vivienda':
+                        {
+                          interestRate = 0.01;
+                        }
+                        break;
+                      case 'Credito de libre Inversion':
+                        {
+                          interestRate = 0.035;
+                        }
+                        break;
+                    }
+                    logInfo("interestRate: $interestRate");
 
                     double? initialValue =
-                        double.tryParse(textControllers[2].text);
-                    double? nCuotes = double.tryParse(textControllers[3].text);
+                        double.tryParse(textControllers[1].text);
+                    double? nCuotes = double.tryParse(textControllers[2].text);
 
                     creditController.createSimulationCredit(
                         initialValue!, nCuotes!, interestRate!);

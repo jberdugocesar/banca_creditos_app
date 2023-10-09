@@ -38,63 +38,55 @@ class _CreditHistoryPageState extends State<CreditHistoryPage> {
                     height: screenHeight,
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      color: Colors.pink,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                              color: Colors.pink,
-                              child: const Text(
-                                  "Resultado de tu simulador de credito")),
+                          const Text("Resultado de tu simulador de credito"),
                           const Text(
                               "Te presentamos en tu tabla de amortización"),
                           const Text("Historial de créditos"),
-                          Container(
-                              color: Colors.amber,
-                              child: SizedBox(
-                                height: screenHeight * 0.6,
-                                child: Obx(() => InteractiveDataTable(
-                                      columnsText: const [
-                                        "Monto del crédito",
-                                        "Fecha de generación",
-                                        "Número de cuotas",
-                                        "Interés",
-                                      ],
-                                      dataRows: <DataRow>[
-                                        ...creditController.creditList.map(
-                                          (credit) => DataRow(
-                                              onLongPress: () {
-                                                logInfo(
-                                                    "this is element ${creditController.creditList.indexOf(credit)}of creditHistory");
-                                                creditController
-                                                    .createSimulationCredit(
-                                                        credit.initialValue,
-                                                        credit.cuoteNumber,
-                                                        credit.interestRate);
-                                                showCreditSimulationOfSelectedRow(
-                                                    MediaQuery.of(context)
-                                                        .size
-                                                        .height,
-                                                    context);
-                                              },
-                                              cells: <DataCell>[
-                                                DataCell(Text(credit
-                                                    .initialValue
-                                                    .toString())),
-                                                DataCell(Text(credit.dateAdded
-                                                    .toString())),
-                                                DataCell(Text(credit.cuoteNumber
-                                                    .toString())),
-                                                DataCell(Text(credit
-                                                    .interestRate
-                                                    .toString())),
-                                              ]),
-                                        )
-                                      ],
-                                    )),
-                              )),
+                          SizedBox(
+                            height: screenHeight * 0.6,
+                            child: Obx(() => InteractiveDataTable(
+                                  columnsText: const [
+                                    "Monto del crédito",
+                                    "Fecha de generación",
+                                    "Número de cuotas",
+                                    "Interés",
+                                  ],
+                                  dataRows: <DataRow>[
+                                    ...creditController.creditList.map(
+                                      (credit) => DataRow(
+                                          onLongPress: () {
+                                            logInfo(
+                                                "this is element ${creditController.creditList.indexOf(credit)}of creditHistory");
+                                            creditController
+                                                .createSimulationCredit(
+                                                    credit.initialValue,
+                                                    credit.cuoteNumber,
+                                                    credit.interestRate);
+                                            showCreditSimulationOfSelectedRow(
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .height,
+                                                context);
+                                          },
+                                          cells: <DataCell>[
+                                            DataCell(Text(credit.initialValue
+                                                .toString())),
+                                            DataCell(Text(
+                                                credit.dateAdded.toString())),
+                                            DataCell(Text(
+                                                credit.cuoteNumber.toString())),
+                                            DataCell(Text(credit.interestRate
+                                                .toString())),
+                                          ]),
+                                    )
+                                  ],
+                                )),
+                          ),
                         ],
                       ),
                     ),

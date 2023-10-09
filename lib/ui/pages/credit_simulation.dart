@@ -28,52 +28,45 @@ class CreditSimulationPage extends StatelessWidget {
                     height: screenHeight,
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      color: Colors.green,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Container(
-                              color: Colors.purple,
-                              child: const Text(
-                                  "Resultado de tu simulador de credito")),
+                          const Text("Resultado de tu simulador de credito"),
                           const Text(
                               "Te presentamos en tu tabla de amortización"),
                           const Text("Tabla de créditos"),
-                          Container(
-                              color: Colors.amber,
-                              child: SizedBox(
-                                  height: screenHeight * 0.44,
-                                  child: InteractiveDataTable(
-                                    columnsText: const [
-                                      "Número de la cuota",
-                                      "Saldo inicial",
-                                      "Cuota",
-                                      "Interés",
-                                      "Abono a capital",
-                                      "Saldo del período"
-                                    ],
-                                    dataRows: <DataRow>[
-                                      ...creditController
-                                          .currentCreditSimulation
-                                          .map(
-                                        (element) => DataRow(cells: <DataCell>[
-                                          DataCell(Text(
-                                              element.cuoteNumber.toString())),
-                                          DataCell(Text(
-                                              element.initialValue.toString())),
-                                          DataCell(Text(
-                                              element.cuoteValue.toString())),
-                                          DataCell(Text(element.interestPayment
-                                              .toString())),
-                                          DataCell(Text(element.capitalPayment
-                                              .toString())),
-                                          DataCell(
-                                              Text(element.balance.toString())),
-                                        ]),
-                                      )
-                                    ],
-                                  ))),
+                          SizedBox(
+                              height: screenHeight * 0.44,
+                              child: InteractiveDataTable(
+                                columnsText: const [
+                                  "Número de la cuota",
+                                  "Saldo inicial",
+                                  "Cuota",
+                                  "Interés",
+                                  "Abono a capital",
+                                  "Saldo del período"
+                                ],
+                                dataRows: <DataRow>[
+                                  ...creditController.currentCreditSimulation
+                                      .map(
+                                    (element) => DataRow(cells: <DataCell>[
+                                      DataCell(
+                                          Text(element.cuoteNumber.toString())),
+                                      DataCell(Text(
+                                          element.initialValue.toString())),
+                                      DataCell(
+                                          Text(element.cuoteValue.toString())),
+                                      DataCell(Text(
+                                          element.interestPayment.toString())),
+                                      DataCell(Text(
+                                          element.capitalPayment.toString())),
+                                      DataCell(
+                                          Text(element.balance.toString())),
+                                    ]),
+                                  )
+                                ],
+                              )),
                           ElevatedButton(
                             onPressed: () {
                               List<List<dynamic>> data = [

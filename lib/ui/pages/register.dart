@@ -59,11 +59,8 @@ class _RegisterPageState extends State<RegisterPage> {
           texts: textList,
           hintTexts: hintTextList,
           controllers: textControllers,
-          bottomWidget: Container(
-            color: Colors.amber,
-            child: const CheckButton(
-              text: "Terminos y condiciones",
-            ),
+          bottomWidget: const CheckButton(
+            text: "Terminos y condiciones",
           ),
           buttonText: "Continuar",
           onPressed: () async {
