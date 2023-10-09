@@ -76,7 +76,28 @@ class CreditSimulationPage extends StatelessWidget {
                                   ))),
                           ElevatedButton(
                             onPressed: () {
+                              List<List<dynamic>> data = [
+                                [
+                                  'Número de la cuota',
+                                  'Saldo Inicial',
+                                  'Cuota',
+                                  'Interes',
+                                  'Abono a capital',
+                                  'Saldo del período'
+                                ],
+                                ...creditController.currentCreditSimulation
+                                    .map((e) => [
+                                          e.cuoteNumber,
+                                          e.initialValue,
+                                          e.cuoteValue,
+                                          e.interestPayment,
+                                          e.capitalPayment,
+                                          e.balance
+                                        ])
+                              ];
                               logInfo("Descargar tabla");
+                              creditController.generateAndSaveExcel(
+                                  data, context);
                             },
                             child: const Text("Descargar Tabla"),
                           ),
@@ -112,6 +133,4 @@ class CreditSimulationPage extends StatelessWidget {
                   child: const SaveCreditConfirmationMenu()),
             ));
   }
-
-  
 }

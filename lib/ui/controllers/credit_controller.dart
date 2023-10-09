@@ -1,13 +1,18 @@
 // Controlador usado para manejar los usuarios del chat
 import 'dart:async';
 import 'dart:ffi';
+import 'dart:io';
 import 'dart:math';
+import 'dart:typed_data';
 import 'package:banca_creditos_app/domain/models/credit.dart';
 import 'package:banca_creditos_app/domain/models/user.dart';
 import 'package:banca_creditos_app/ui/controllers/auth_controller.dart';
+import 'package:excel/excel.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
+import 'package:path_provider/path_provider.dart';
 
 class CreditController extends GetxController {
   final RxList<CreditRow> _currentCreditSimulation = <CreditRow>[].obs;
@@ -72,8 +77,6 @@ class CreditController extends GetxController {
 
       creditBefore = balanceOfPeriod;
 
-      logInfo(
-          "Iteration $cont \n with balancedPeriod: $balanceOfPeriod \n interestPayment: $interestPayment \n capitalPayment: $capitalPayment \n and cuoteValue: $cuoteValue");
       cont++;
     }
     _currentCreditSimulation.value = rows;
@@ -97,8 +100,40 @@ class CreditController extends GetxController {
     logInfo("Tabla con ${_currentCuoteNumber.value} guardada en el historial");
   }
 
-  void currentCreditTableToExcel() {
-    logInfo("currentCreditTableToExcel");
+  Future<void> generateAndSaveExcel(List<List<dynamic>> data, context) async {
+    final excel = Excel.createExcel();
+    final sheet = excel['Sheet1'];
+
+    for (var row in data) {
+      sheet.appendRow(row);
+    }
+
+    final directory = Directory('/storage/emulated/0/Download');
+    final filePath = '${directory.path}/data.xlsx';
+
+    final file = File(filePath);
+    final fileBytes = excel.encode();
+
+    await file.writeAsBytes(fileBytes!);
+
+    // Abre un diálogo de confirmación después de guardar el archivo
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Archivo Excel generado'),
+          content: Text('El archivo Excel se ha guardado en $filePath.'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Aceptar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   // lista en la que se almacenan los uaurios, la misma es observada por la UI
