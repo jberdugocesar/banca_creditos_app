@@ -28,12 +28,6 @@ class CreditController extends GetxController {
 
   get maximumCreditAvailable => _maximumCreditAvailable;
 
-  final databaseRef = FirebaseDatabase.instance
-      .ref()
-      .child("userList")
-      .child(AuthenticationController().getUid())
-      .child("creditHistoryList");
-
   void updateCurrentSimulationCreditValues(
       double creditInitialValue, double cuoteNumber, double interestRate) {
     _currentInitialCredit.value = creditInitialValue;
@@ -110,9 +104,9 @@ class CreditController extends GetxController {
   // lista en la que se almacenan los uaurios, la misma es observada por la UI
   final RxList<CreditHistory> _creditList = <CreditHistory>[].obs;
 
-  late StreamSubscription<DatabaseEvent> newEntryStreamSubscription;
+  final _creditDatabaseRef = FirebaseDatabase.instance.ref();
 
-  late StreamSubscription<DatabaseEvent> updateEntryStreamSubscription;
+  late StreamSubscription<DatabaseEvent> newEntryStreamSubscription;
 
   RxList<CreditHistory> get creditList => _creditList;
 
@@ -121,10 +115,12 @@ class CreditController extends GetxController {
   void start() {
     _creditList.clear();
 
-    newEntryStreamSubscription = databaseRef.onChildAdded.listen(_onEntryAdded);
-
-    /* updateEntryStreamSubscription =
-        databaseRef.child("userList").onChildChanged.listen(_onEntryChanged); */
+    newEntryStreamSubscription = _creditDatabaseRef
+        .child("userList")
+        .child(AuthenticationController().getUid())
+        .child("creditHistoryList")
+        .onChildAdded
+        .listen(_onEntryAdded);
   }
 
   // método para dejar de escuchar cambios
@@ -136,8 +132,9 @@ class CreditController extends GetxController {
   // cuando obtenemos un evento con un nuevo credito lo agregamos a _credits
   _onEntryAdded(DatabaseEvent event) {
     final json = event.snapshot.value as Map<dynamic, dynamic>;
-    logInfo("this is $json");
+    logInfo("this is called $json");
     _creditList.add(CreditHistory.fromJson(event.snapshot, json));
+    logInfo("this is creditList ${_creditList.value}");
   }
 
   // método para crear un nuevo credito
@@ -149,7 +146,12 @@ class CreditController extends GetxController {
     logInfo(
         "Creating creditHistory in realTime for user: ${AuthenticationController().getUid()}");
     try {
-      await databaseRef.push().set(CreditHistory(
+      await _creditDatabaseRef
+          .child("userList")
+          .child(AuthenticationController().getUid())
+          .child("creditHistoryList")
+          .push()
+          .set(CreditHistory(
             initialValue: initialValue,
             cuoteNumber: cuoteNumber,
             dateAdded: dateAdded,

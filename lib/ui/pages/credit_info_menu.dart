@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 class CreditInfoMenu extends StatelessWidget {
   CreditInfoMenu({Key? key}) : super(key: key);
 
-  CreditController creditController = Get.find();
+  final CreditController creditController = Get.find();
 
   @override
   Widget build(BuildContext context) {

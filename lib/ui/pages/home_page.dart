@@ -6,6 +6,7 @@ import 'package:banca_creditos_app/ui/controllers/credit_controller.dart';
 import 'package:banca_creditos_app/ui/controllers/user_controller.dart';
 import 'package:banca_creditos_app/ui/pages/credit_info_menu.dart';
 import 'package:banca_creditos_app/ui/pages/credit_simulation.dart';
+import 'package:banca_creditos_app/ui/pages/start_screen.dart';
 import 'package:banca_creditos_app/ui/widgets/form.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,14 +40,13 @@ class _HomePageState extends State<HomePage> {
   CreditController creditController = Get.find();
   AuthenticationController authenticationController = Get.find();
 
-  late final _nroOfForms;
+  late int _nroOfForms;
   late List<TextEditingController> textControllers;
 
   @override
   void initState() {
     // le decimos al userController que se suscriba a los streams
     super.initState();
-    userController.start();
     _nroOfForms = text.length;
     textControllers =
         List.generate(_nroOfForms, (_) => TextEditingController());
@@ -55,7 +55,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     // le decimos al userController que se cierre los streams
-    userController.stop();
     super.dispose();
   }
 
@@ -71,8 +70,16 @@ class _HomePageState extends State<HomePage> {
                 "Ingresa los datos de tu credito según lo que necesites"),
             IconButton(
                 onPressed: () {
-                  showCreditResumeMenuSheet(
-                      MediaQuery.of(context).size.height, context);
+                  try {
+                    double? salary = double.tryParse(textControllers[1].text);
+                    creditController.calculateMaximumCreditAvailable(salary!);
+
+                    showCreditResumeMenuSheet(
+                        MediaQuery.of(context).size.height, context);
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Need a valid salary")));
+                  }
                 },
                 icon: const Icon(
                   Icons.info,
@@ -87,13 +94,11 @@ class _HomePageState extends State<HomePage> {
                   try {
                     double? interestRate =
                         double.tryParse(textControllers[0].text);
-                    double? salary = double.tryParse(textControllers[1].text);
 
                     double? initialValue =
                         double.tryParse(textControllers[2].text);
                     double? nCuotes = double.tryParse(textControllers[3].text);
 
-                    creditController.calculateMaximumCreditAvailable(salary!);
                     creditController.createSimulationCredit(
                         initialValue!, nCuotes!, interestRate!);
                   } catch (e) {
@@ -109,20 +114,11 @@ class _HomePageState extends State<HomePage> {
                   );
                 }),
             ElevatedButton(
-              onPressed: () {
-                /*authenticationController.signUp(
-                    email: "hola@hotmail.com", password: "123456");
-                authenticationController.login("hola@hotmail.com", "123456");*/
-
-                /* userController.createUser(
-                    email: "hola2",
-                    fullName: "hola2",
-                    personalId: "XD",
-                    uid: authenticationController.getUid());
-                logInfo("this is HomePage Prueba: ${userController.userList}");
-                logInfo(userController.userList);*/
+              onPressed: () async {
+                authenticationController.logOut();
+                await Get.offAllNamed("/");
               },
-              child: const Text("Prueba", style: TextStyle(color: Colors.red)),
+              child: const Text("LogOut", style: TextStyle(color: Colors.red)),
             )
           ],
         ),

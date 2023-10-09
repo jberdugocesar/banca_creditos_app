@@ -3,12 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:loggy/loggy.dart';
 
 class AuthenticationController extends GetxController {
-  Future<void> login(theEmail, thePassword) async {
+  Future<bool> login(theEmail, thePassword) async {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: theEmail, password: thePassword);
       logInfo('OK');
-      return Future.value(true);
+      return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         logInfo('NOK 1');
@@ -17,8 +17,8 @@ class AuthenticationController extends GetxController {
         logInfo('NOK 2');
         return Future.error("Wrong password");
       }
+      return false;
     }
-    print('NOK');
   }
 
   Future<void> signUp({email, password}) async {

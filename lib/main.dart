@@ -20,11 +20,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  Get.put(CreditRepository());
-  Get.put(UserRepository());
-  Get.put(UserController());
   Get.put(AuthenticationController());
+  //Get.put(CreditRepository());
+  //Get.put(UserRepository());
+  Get.put(UserController());
   Get.put(CreditController());
 
   runApp(const MyApp());
@@ -41,9 +40,9 @@ class MyApp extends StatelessWidget {
       initialRoute: "/",
       getPages: [
         GetPage(name: "/", page: () => const StartPage()),
-        GetPage(name: "/login", page: () => LoginPage()),
-        GetPage(name: "/register", page: () => RegisterPage()),
-        GetPage(name: "/homepage", page: () => BottomNavBar())
+        GetPage(name: "/login", page: () => const LoginPage()),
+        GetPage(name: "/register", page: () => const RegisterPage()),
+        GetPage(name: "/homepage", page: () => const BottomNavBar())
       ],
       theme: ThemeData(
         // This is the theme of your application.
