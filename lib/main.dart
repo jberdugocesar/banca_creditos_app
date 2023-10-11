@@ -3,7 +3,6 @@ import 'package:banca_creditos_app/ui/bottom_navbar.dart';
 import 'package:banca_creditos_app/ui/controllers/auth_controller.dart';
 import 'package:banca_creditos_app/ui/controllers/credit_controller.dart';
 import 'package:banca_creditos_app/ui/controllers/user_controller.dart';
-import 'package:banca_creditos_app/ui/pages/home_page.dart';
 import 'package:banca_creditos_app/ui/pages/login.dart';
 import 'package:banca_creditos_app/ui/pages/register.dart';
 import 'package:banca_creditos_app/ui/pages/start_screen.dart';

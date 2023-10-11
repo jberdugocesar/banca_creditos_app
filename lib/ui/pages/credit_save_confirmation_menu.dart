@@ -1,10 +1,6 @@
-import 'package:banca_creditos_app/ui/bottom_navbar.dart';
 import 'package:banca_creditos_app/ui/controllers/credit_controller.dart';
-import 'package:banca_creditos_app/ui/pages/credit_history.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loggy/loggy.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class SaveCreditConfirmationMenu extends StatelessWidget {
   const SaveCreditConfirmationMenu({Key? key}) : super(key: key);

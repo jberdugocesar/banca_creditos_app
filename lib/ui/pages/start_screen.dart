@@ -1,6 +1,5 @@
 import 'package:banca_creditos_app/ui/widgets/button_column.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
 class StartPage extends StatelessWidget {

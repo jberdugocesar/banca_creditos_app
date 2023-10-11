@@ -1,18 +1,14 @@
 // Controlador usado para manejar los usuarios del chat
 import 'dart:async';
-import 'dart:ffi';
 import 'dart:io';
 import 'dart:math';
-import 'dart:typed_data';
 import 'package:banca_creditos_app/domain/models/credit.dart';
-import 'package:banca_creditos_app/domain/models/user.dart';
 import 'package:banca_creditos_app/ui/controllers/auth_controller.dart';
 import 'package:excel/excel.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
-import 'package:path_provider/path_provider.dart';
 
 class CreditController extends GetxController {
   final RxList<CreditRow> _currentCreditSimulation = <CreditRow>[].obs;
@@ -169,7 +165,6 @@ class CreditController extends GetxController {
     final json = event.snapshot.value as Map<dynamic, dynamic>;
     logInfo("this is called $json");
     _creditList.add(CreditHistory.fromJson(event.snapshot, json));
-    logInfo("this is creditList ${_creditList.value}");
   }
 
   // método para crear un nuevo credito

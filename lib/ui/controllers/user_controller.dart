@@ -12,10 +12,7 @@ class UserController extends GetxController {
   final Rx<AppUser> _currentUser =
       AppUser(personalId: "idk", email: "neutral", fullName: "fullNombre").obs;
 
-  final _userDatabaseRef = FirebaseDatabase.instance
-      .ref()
-      .child('userList')
-      .child(AuthenticationController().getUid());
+  final _userDatabaseRef = FirebaseDatabase.instance.ref().child('userList');
 
   Rx<AppUser> get currentUser => _currentUser;
 
@@ -23,12 +20,15 @@ class UserController extends GetxController {
   Future<void> createUser({email, uid, personalId, fullName}) async {
     logInfo("Creating user in realTime for $email and $uid");
     try {
-      await _userDatabaseRef.push().set(AppUser(
-              email: email,
-              fullName: fullName,
-              personalId: personalId,
-              uid: uid)
-          .toJson());
+      await _userDatabaseRef
+          .child(AuthenticationController().getUid())
+          .push()
+          .set(AppUser(
+                  email: email,
+                  fullName: fullName,
+                  personalId: personalId,
+                  uid: uid)
+              .toJson());
     } catch (error) {
       logError(error);
       return Future.error(error);

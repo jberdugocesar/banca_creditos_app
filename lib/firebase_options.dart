@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -48,6 +42,17 @@ class DefaultFirebaseOptions {
         );
     }
   }
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBrok8riILeBJaGXfeiSGmLoGayrPFEtGg',
+    appId: '1:834399039662:web:0d0445eb1a10af0fc03d3f',
+    messagingSenderId: '834399039662',
+    projectId: 'bancacreditosapp',
+    authDomain: 'bancacreditosapp.firebaseapp.com',
+    databaseURL: 'https://bancacreditosapp-default-rtdb.firebaseio.com',
+    storageBucket: 'bancacreditosapp.appspot.com',
+    measurementId: 'G-RWPXNPLMYK',
+  );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDLs_aJ2tMoyE-8-u981ReEIxk76nkNOFA',
@@ -66,5 +71,15 @@ class DefaultFirebaseOptions {
     databaseURL: 'https://bancacreditosapp-default-rtdb.firebaseio.com',
     storageBucket: 'bancacreditosapp.appspot.com',
     iosBundleId: 'com.example.bancaCreditosApp',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyDqvmWOFJgBigAfShmoOlWFWixuMIArRtE',
+    appId: '1:834399039662:ios:76f3741d8925b2c9c03d3f',
+    messagingSenderId: '834399039662',
+    projectId: 'bancacreditosapp',
+    databaseURL: 'https://bancacreditosapp-default-rtdb.firebaseio.com',
+    storageBucket: 'bancacreditosapp.appspot.com',
+    iosBundleId: 'com.example.bancaCreditosApp.RunnerTests',
   );
 }

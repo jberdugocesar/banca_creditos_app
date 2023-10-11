@@ -1,8 +1,6 @@
 import 'package:banca_creditos_app/ui/controllers/credit_controller.dart';
 import 'package:banca_creditos_app/ui/pages/credit_simulation.dart';
-import 'package:banca_creditos_app/ui/widgets/form.dart';
 import 'package:banca_creditos_app/ui/widgets/table.dart';
-import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
@@ -20,7 +18,6 @@ class _CreditHistoryPageState extends State<CreditHistoryPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     creditController.start();
   }

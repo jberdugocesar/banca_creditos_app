@@ -1,12 +1,8 @@
-import 'dart:ffi';
-
-import 'package:banca_creditos_app/domain/models/credit.dart';
 import 'package:banca_creditos_app/ui/controllers/auth_controller.dart';
 import 'package:banca_creditos_app/ui/controllers/credit_controller.dart';
 import 'package:banca_creditos_app/ui/controllers/user_controller.dart';
 import 'package:banca_creditos_app/ui/pages/credit_info_menu.dart';
 import 'package:banca_creditos_app/ui/pages/credit_simulation.dart';
-import 'package:banca_creditos_app/ui/pages/start_screen.dart';
 import 'package:banca_creditos_app/ui/widgets/form.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
