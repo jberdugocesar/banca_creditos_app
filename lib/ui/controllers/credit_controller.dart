@@ -164,6 +164,7 @@ class CreditController extends GetxController {
   _onEntryAdded(DatabaseEvent event) {
     final json = event.snapshot.value as Map<dynamic, dynamic>;
     logInfo("this is called $json");
+    logInfo(creditList);
     _creditList.add(CreditHistory.fromJson(event.snapshot, json));
   }
 

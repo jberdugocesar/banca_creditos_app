@@ -1,8 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:banca_creditos_app/ui/controllers/credit_controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:banca_creditos_app/ui/pages/credit_history.dart';
@@ -21,19 +18,17 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   late PersistentTabController _controller;
-  CreditController creditController = Get.find();
 
   @override
   void initState() {
     super.initState();
-    creditController.start();
     _controller = PersistentTabController(initialIndex: 0);
   }
 
   List<Widget> _buildScreens(BuildContext context) {
     return [
       const HomePage(),
-      CreditHistoryPage(),
+      const CreditHistoryPage(),
     ];
   }
 

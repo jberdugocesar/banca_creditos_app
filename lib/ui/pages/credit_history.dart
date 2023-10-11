@@ -58,7 +58,7 @@ class _CreditHistoryPageState extends State<CreditHistoryPage> {
                                       (credit) => DataRow(
                                           onLongPress: () {
                                             logInfo(
-                                                "this is element ${creditController.creditList.indexOf(credit)}of creditHistory");
+                                                "this is element ${creditController.creditList.indexOf(credit)} of creditHistory");
                                             creditController
                                                 .createSimulationCredit(
                                                     credit.initialValue,

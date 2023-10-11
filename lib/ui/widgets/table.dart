@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class InteractiveDataTable extends StatefulWidget {
   const InteractiveDataTable(
@@ -14,9 +13,6 @@ class InteractiveDataTable extends StatefulWidget {
 class _InteractiveDataTableState extends State<InteractiveDataTable> {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-
     return Container(
       color: Colors.white,
       height: 200,
@@ -26,7 +22,6 @@ class _InteractiveDataTableState extends State<InteractiveDataTable> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: DataTable(
-            
             columns: <DataColumn>[
               ...widget.columnsText.map((columnText) =>
                   DataColumn(label: SizedBox(child: Text(columnText)))),
