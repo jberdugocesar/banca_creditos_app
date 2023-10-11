@@ -33,7 +33,11 @@ class SaveCreditConfirmationMenu extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     },
                     child: const Text("Guardar")),
-                ElevatedButton(onPressed: () {}, child: const Text("Cancelar")),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Cancelar")),
               ],
             ),
           ),

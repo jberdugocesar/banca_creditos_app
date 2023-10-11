@@ -132,10 +132,18 @@ class _HomePageState extends State<HomePage> {
 
                     double? initialValue =
                         double.tryParse(textControllers[1].text);
+
                     double? nCuotes = double.tryParse(textControllers[2].text);
 
+                    if (nCuotes! > 84) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content:
+                              Text("Number of Payments can't be over 84")));
+                      return;
+                    }
+
                     creditController.createSimulationCredit(
-                        initialValue!, nCuotes!, interestRate!);
+                        initialValue!, nCuotes, interestRate!);
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Error parsing the fields")));

@@ -22,7 +22,11 @@ class CreditInfoMenu extends StatelessWidget {
               const Text("Cuota máxima del prestamo"),
               Obx(() => Text(
                   "Valor total a pagar: ${creditController.maximumCreditAvailable}")),
-              ElevatedButton(onPressed: () {}, child: const Text("Cerrar")),
+              ElevatedButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: const Text("Cerrar")),
             ],
           ),
         ),
