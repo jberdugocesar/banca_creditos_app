@@ -24,7 +24,7 @@ class CreditInfoMenu extends StatelessWidget {
                   "Valor total a pagar: ${creditController.maximumCreditAvailable}")),
               ElevatedButton(
                   onPressed: () {
-                    Get.back();
+                    Navigator.pop(context);
                   },
                   child: const Text("Cerrar")),
             ],
