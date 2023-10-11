@@ -72,8 +72,20 @@ class _RegisterPageState extends State<RegisterPage> {
             logInfo("email: $email and fullName: $fullName");
 
             try {
-              await authenticationController.signUp(
+              if (password.length < 6) {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("Password can't be less than 6 characters")));
+              }
+
+              bool validSignUp = await authenticationController.signUp(
                   email: email, password: password);
+
+              if (validSignUp == false) {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text(
+                        "Error with the sign up, make sure to introduce the right credentials")));
+                return;
+              }
 
               await authenticationController.login(email, password);
 

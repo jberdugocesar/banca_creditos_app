@@ -21,17 +21,18 @@ class AuthenticationController extends GetxController {
     }
   }
 
-  Future<void> signUp({email, password}) async {
+  Future<bool> signUp({email, password}) async {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      return Future.value(true);
+      return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         return Future.error('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
         return Future.error('The account already exists for that email.');
       }
+      return false;
     }
   }
 
